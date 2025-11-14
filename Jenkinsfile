@@ -20,7 +20,7 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-cred', url: 'http://13.239.55.245:8080')], war: 'hello.war'
+                deploy adapters: [tomcat9(credentialsId: 'Tomcat_creds', url: 'http://13.239.55.245:8080')], war: 'hello.war'
             }
         }
     }
