@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'tomcat', url: ''
+                git branch: 'tomcat', url: 'https://github.com/Gracy-1234/Jenkins-POC.git'
             }
         }
 
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-cred', url: 'http://<EC2_PUBLIC_IP>:8080')], war: 'hello.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-cred', url: 'http://13.239.55.245:8080')], war: 'hello.war'
             }
         }
     }
