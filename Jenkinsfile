@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_SERVER = 'ubuntu@13.239.55.245'
+        APP_SERVER = 'ubuntu@3.25.115.86'
         TOMCAT_WEBAPPS = '/var/lib/tomcat10/webapps'
         CONTEXT = 'main'
         REMOTE_TMP = '/tmp/html_deploy_main'
@@ -59,7 +59,7 @@ pipeline {
     post {
         success {
             echo "Pipeline completed successfully!"
-            echo "Verify at: http://<Tomcat_Server_IP>:8080/${env.CONTEXT}/"
+            echo "Verify at: http://3.25.115.86:8080/${env.CONTEXT}/"
         }
         failure {
             echo "Pipeline failed — check logs for details."
