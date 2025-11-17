@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         APP_SERVER = 'ubuntu@3.25.115.86'
-        TOMCAT_WEBAPPS = '/var/lib/tomcat10/webapps'
+        TOMCAT_WEBAPPS = '/apache-tomcat-10.1.49/webapps'
         CONTEXT = 'main'
         SSH_KEY_CREDENTIALS = 'tomcat-ssh-key'
-        TOMCAT_SERVICE = 'tomcat10'
+        TOMCAT_SERVICE = 'apache-tomcat-10.1.49'
     }
 
     stages {
