@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_SERVER = 'ubuntu@<Apache_Server_IP>'
+        APP_SERVER = 'ubuntu@3.25.199.180'
         APP_SERVER_PATH = '/var/www/html/main'
         SSH_KEY_CREDENTIALS = 'apache-ssh-key'
     }
