@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_SERVER = 'ubuntu@3.25.199.180'
-        APP_SERVER_PATH = '/var/www/html/main'
+        APP_SERVER_PATH = '/var/www/html'  // Changed to root directory
         SSH_KEY_CREDENTIALS = 'apache-ssh-key'  // Matches Jenkins credential ID
     }
 
@@ -34,10 +34,10 @@ pipeline {
                     sh """
                         # Create target directory on remote server
                         ssh -o StrictHostKeyChecking=no ${APP_SERVER} 'sudo mkdir -p ${APP_SERVER_PATH} && sudo chown ubuntu:ubuntu ${APP_SERVER_PATH}'
-                        
-                        # Copy HTML files to Apache directory
-                        scp -o StrictHostKeyChecking=no index.html ${APP_SERVER}:${APP_SERVER_PATH}/index.html
-                        
+
+                        # Copy all files (HTML, CSS, JS, images) to Apache directory
+                        scp -o StrictHostKeyChecking=no -r * ${APP_SERVER}:${APP_SERVER_PATH}/
+
                         # Restart Apache to apply changes
                         ssh -o StrictHostKeyChecking=no ${APP_SERVER} 'sudo systemctl restart apache2'
                     """
