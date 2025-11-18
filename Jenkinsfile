@@ -4,12 +4,13 @@ pipeline {
     environment {
         APP_SERVER = 'ubuntu@3.25.199.180'
         APP_SERVER_PATH = '/var/www/html/main'
-        SSH_KEY_CREDENTIALS = 'apache-ssh-key'
+        SSH_KEY_CREDENTIALS = 'apache-ssh-key'  // Matches Jenkins credential ID
     }
 
     stages {
         stage('Checkout') {
             steps {
+                echo "Checking out source code..."
                 checkout scm
             }
         }
@@ -31,8 +32,14 @@ pipeline {
                 echo "Deploying HTML app to remote Apache server..."
                 sshagent([env.SSH_KEY_CREDENTIALS]) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no ${APP_SERVER} 'mkdir -p ${APP_SERVER_PATH}'
+                        # Create target directory on remote server
+                        ssh -o StrictHostKeyChecking=no ${APP_SERVER} 'sudo mkdir -p ${APP_SERVER_PATH} && sudo chown ubuntu:ubuntu ${APP_SERVER_PATH}'
+                        
+                        # Copy HTML files to Apache directory
                         scp -o StrictHostKeyChecking=no index.html ${APP_SERVER}:${APP_SERVER_PATH}/index.html
+                        
+                        # Restart Apache to apply changes
+                        ssh -o StrictHostKeyChecking=no ${APP_SERVER} 'sudo systemctl restart apache2'
                     """
                 }
             }
