@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_SERVER = 'ubuntu@3.25.199.180'
+        APP_SERVER = 'ubuntu@15.134.145.29'
         APP_SERVER_PATH = '/var/www/html'  // Changed to root directory
         SSH_KEY_CREDENTIALS = 'apache-ssh-key'  // Matches Jenkins credential ID
     }
